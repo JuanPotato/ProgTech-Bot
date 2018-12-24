@@ -142,7 +142,7 @@ async def list(message: types.Message):
         return_text = f"{groups[group].__name__}s:\n"
         with db_session:
             for user in groups[group].select():
-                return_text += f" - {user.name}\n"
+                return_text += f" • {user.name}\n"
     else:
         return_text = f"No group found with name {group}"
 
