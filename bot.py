@@ -21,7 +21,7 @@ with open('groups.json') as f:
 with open('config.toml') as f:
     config = toml.load(f)
 
-bot = Bot(token=config.bot_token)
+bot = Bot(token=config['bot_token'])
 dp = Dispatcher(bot)
 db = Database()
 db.bind(provider='sqlite', filename='database.sqlite', create_db=True)
@@ -49,7 +49,6 @@ def titlecase(s):
 
 
 # Programming and group name changes
-#Maybe delete, maybe keep
 #@dp.message_handler(regexp=r'(?i)^Programming( (?:&|&&|and|et|en|und|y|och|og|и|ו|e) .+?)+$')
 async def programming_et_al(message: types.Message):
     pieces = re.split(r' (?:&|&&|and|et|en|und|y|och|og|и|ו|e) ', message.text, re.IGNORECASE)
@@ -59,7 +58,6 @@ async def programming_et_al(message: types.Message):
     await message.chat.set_title(new_title)
 
 
-# /join
 @dp.message_handler(regexp=r'^/join \S+$')
 async def join(message: types.Message):
     group = message.text[6:]
@@ -80,7 +78,6 @@ async def join(message: types.Message):
     await bot.send_message(message.chat.id, return_text, reply_to_message_id=message.message_id)
 
 
-# /leave
 @dp.message_handler(regexp=r'^/leave \S+$')
 async def join(message: types.Message):
     group = message.text[7:]
@@ -100,7 +97,6 @@ async def join(message: types.Message):
     await bot.send_message(message.chat.id, return_text, reply_to_message_id=message.message_id)
 
 
-# /list
 @dp.message_handler(regexp=r'^/list \S+$')
 async def list(message: types.Message):
     group = message.text[6:]
@@ -118,8 +114,6 @@ async def list(message: types.Message):
     await bot.send_message(message.chat.id, return_text, reply_to_message_id=message.message_id)
 
 
-
-# /groups
 @dp.message_handler(regexp=r'^/groups')
 async def list_groups(message: types.Message):
     return_text = 'Groups:\n' + '\n'.join(f' - {group}' for group in groups) or 'None'
@@ -145,7 +139,7 @@ async def tag_group(group_name, chat_id):
 @dp.message_handler()
 async def catchall(message: types.Message):
     for group_name in groups:
-        if re.search(f'(^|\W)@{group_name}\\b', message.text):
+        if re.search(f'(^|\W)[#@]{group_name}\\b', message.text):
             await tag_group(group_name, message.chat.id)
             break
 
