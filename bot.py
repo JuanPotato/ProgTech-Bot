@@ -193,11 +193,11 @@ async def add_group(message: types.Message):
 
 
 async def tag_group(group_name, chat_id):
-    text = f"Tagging all {groups[group_name].__name__}s"
+    text = f"Tagging all {groups[group_name].__name__}s!"
 
     with db_session:
         for user in groups[group_name].select():
-            text += f"[!](tg://user?id={user.id})"
+            text += f"[\u2063](tg://user?id={user.id})"
 
     await bot.send_message(chat_id, text, parse_mode="Markdown")
 
