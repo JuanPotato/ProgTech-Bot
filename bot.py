@@ -153,7 +153,7 @@ async def list(message: types.Message):
 
 @dp.message_handler(regexp=r"^/groups")
 async def list_groups(message: types.Message):
-    return_text = "Groups:\n" + "\n".join(f" - {group}" for group in groups) or "None"
+    return_text = "Groups:\n" + "\n".join(f" • {group}" for group in groups) or "None"
 
     await bot.send_message(
         message.chat.id, return_text, reply_to_message_id=message.message_id
