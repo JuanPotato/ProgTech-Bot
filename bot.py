@@ -173,7 +173,7 @@ async def add_group(message: types.Message):
     group = args[1]
     if group[0] == "@":
         group = group[1:]
-    member = titlecase(args[2])
+    member = titlecase(' '.join(args[2:]))
 
     if group in groups:
         return_text = f"Group {group} already exists. call `/join {group}` to join"
