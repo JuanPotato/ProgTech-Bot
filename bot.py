@@ -12,7 +12,8 @@ help_text = """I mean, if you really wanted to know :/
 `/help` - Nah, you figured this one out
 `/join groupname` - join the group :o
 `/leave groupname` - exercise for reader
-`/groups` - lists available groups"""
+`/groups` - lists available groups
+`/addgroup grouptag Membersname` - create a new group with eg switch_peeps, Switcheroos"""
 
 
 with open("groups.json") as f:
