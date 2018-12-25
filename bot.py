@@ -181,6 +181,9 @@ async def add_group(message: types.Message):
     else:
         groups_json[group] = member
 
+        with open("groups.json", "w") as outfile:
+            json.dump(groups_json, outfile)
+
         reload_all_db()
 
         with db_session:
